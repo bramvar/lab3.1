@@ -426,6 +426,44 @@ public class VrRbTreeNode <T extends Comparable<? super T>>{
 	deleteCase6( r );
 	}
 	
+	public void deleteCase6( Return0 r )
+	{
+		VrRbTreeNode<T> bro = getBrother( );
+
+		bro.color = parent.color;
+		parent.color = BLACK;
+		VrRbTreeNode<T>  gParent = parent.parent;
+
+		r.r =bro;
+
+		if( parent.isLeftChild( this ) ){
+			bro.rightChild.color =BLACK;
+
+			if(gParent != null ){
+				if( gParent.isRightChild(parent) )
+					gParent.setRightChild(parent.leftRotate() );
+				else
+					gParent.setLeftChild(parent.leftRotate( ) );
+			}
+			else
+				parent.leftRotate( );
+		}
+		else
+		{
+			bro.leftChild.color = BLACK;
+
+			if(gParent != null ){
+				if( gParent.isRightChild(parent) )
+					gParent.setRightChild(parent.rightRotate( ) );
+				else
+					gParent.setLeftChild(parent.rightRotate( ) );
+			}
+			else
+				parent.rightRotate();
+		}
+	}
+
+	
 
 
 	private class Return0{
