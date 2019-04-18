@@ -49,6 +49,20 @@ public class VrRbTreeNode <T extends Comparable<? super T>>{
 			this.leftChild=leftChild;
 		}
 	}
+	
+	public int getHeight() {
+		if( isLeaf( ) )
+			return 0;
+		else {
+			int a1 = leftChild.getHeight( );
+			int a2 = rightChild.getHeight( );
+			return ( a1 >= a2 ) ? a1 + 1 : a2 + 1;
+		}
+	}
+	
+	public int getWeight() {
+		return isLeaf( ) ? 0 : 1 + rightChild.getWeight( ) + leftChild.getWeight( );
+	}
 
 	public T getElem() {
 		return elem;

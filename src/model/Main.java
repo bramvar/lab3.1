@@ -9,6 +9,6 @@ public class Main {
 	private IvrRbTree<Integer> a;
 	
 	public Main() {
-		new SuchElementException();
+		
 	}
 }

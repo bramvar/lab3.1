@@ -12,7 +12,7 @@ public class VrRbTree<T extends Comparable<? super T>> implements IvrRbTreeO<T>{
 
 	@Override
 	public int getHeight() {
-		return root == null ? 0 : root.;
+		return root == null ? 0 : root.getHeight();
 	}
 
 	@Override
