@@ -4,8 +4,8 @@ import exceptions.ElementException;
 
 public class VrRbTreeNode <T extends Comparable<? super T>>{
 	
-	private static final int BLACK=1;
-	private static final int RED=0;
+	public static final int BLACK=1;
+	public static final int RED=0;
 	
 	private VrRbTreeNode<T> rightChild;
 	private VrRbTreeNode<T> leftChild;
@@ -198,7 +198,8 @@ public class VrRbTreeNode <T extends Comparable<? super T>>{
 	public VrRbTreeNode<T> insert(VrRbTreeNode<T> node) throws ElementException{
 		insertN(node);
 		Return0 r =new Return0(null);
-		node
+		node.insertCase1(r);
+		return r.r;
 	}
 	
 	public void insertN(VrRbTreeNode<T> node) throws ElementException {
