@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import exceptions.ElementException;
-import vrRBTree.IvrRbTree;
-import vrRBTree.IvrRbTreeO;
+import interfaces.IvrTree;
+import interfaces.IvrTreeO;
 import vrRBTree.VrRbTree;
 import vrRBTree.VrRbTreeNode;
 

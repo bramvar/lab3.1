@@ -2,11 +2,11 @@ package model;
 
 import java.util.NoSuchElementException;
 
-import vrRBTree.IvrRbTree;
+import interfaces.IvrTree;
 
 public class Main {
 
-	private IvrRbTree<Integer> a;
+	private IvrTree<Integer> a;
 	
 	public Main() {
 		

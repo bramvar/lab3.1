@@ -1,8 +1,9 @@
 package vrRBTree;
 
 import exceptions.ElementException;
+import interfaces.IvrTreeO;
 
-public class VrRbTree<T extends Comparable<? super T>> implements IvrRbTreeO<T>{
+public class VrRbTree<T extends Comparable<? super T>> implements IvrTreeO<T>{
 	
 	private VrRbTreeNode<T> root;
 	

@@ -1,6 +1,6 @@
-package vrRBTree;
+package interfaces;
 
-public interface IvrRbTree<T> {
+public interface IvrTree<T> {
 
 	public int getHeight();
 	public int getWeight();
