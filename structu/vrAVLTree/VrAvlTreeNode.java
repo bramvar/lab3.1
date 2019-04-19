@@ -1,7 +1,6 @@
 package vrAVLTree;
 
 import exceptions.ElementException;
-import vrRBTree.VrRbTreeNode;
 
 public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 
@@ -59,13 +58,197 @@ public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 	public void setRightN(VrAvlTreeNode<T> rightN) {
 		this.rightN = rightN;
 	}
+	
+	public VrAvlTreeNode<T> maxNode( ){
+		return ( rightN == null ) ? this : rightN.maxNode( );
+	}
 
-
+	public VrAvlTreeNode<T> minNode( ){
+		return ( leftN == null ) ? this : leftN.minNode( );
+	}
+	
+	public T maximun( ){
+		VrAvlTreeNode<T>  n = maxNode( );
+		return ( n== null ) ? null : n.getElem( );
+	}
+	
+	public T darMenor( ){
+		VrAvlTreeNode<T> n = minNode( );
+	return ( n == null ) ? null : n.getElem( );
+	}
+	
 	public  VrAvlTreeNode<T>  insert( T elem ) throws ElementException{
 	
 		Return0 r = new Return0( null, false );
 		insert2( elem, r);
 		return r.r;
+	}
+	
+	public T search( T elem )
+	{
+		int res = elem.compareTo( elem );
+		if( res == 0 ) {
+			return elem;
+		}
+		else if( res > 0 ){
+			return ( leftN != null ) ? leftN.search( elem ) : null;
+		}
+		else{
+			return ( rightN != null ) ? rightN.search( elem ) : null;
+		}
+	}
+	
+	public VrAvlTreeNode<T>  delete( T pElemento ) throws ElementException{
+		Return0 r = new Return0( null, false );
+		delete2( pElemento, r);
+		return r.r;
+	}
+	
+	private void rightBalanceDelete( Return0 r ){
+		switch( balance ){
+			case BLEFT:
+				balance = BAL;
+				r.r = this;
+				break;
+			case BAL:
+				balance = BRIGHT;
+				r.heightChange = false;
+				r.r = this;
+				break;
+			case BRIGHT:
+				if( rightN.balance != BLEFT ){
+					r.r= leftRotate( );
+					if( r.r.balance == BAL ){
+						r.r.balance = BLEFT;
+						r.r.leftN.balance = BRIGHT;
+						r.heightChange = false;
+					}
+					else{
+						r.r.balance = BAL;
+						r.r.leftN.balance = BAL;
+					}
+				}
+				else{
+					r.r= rightLeftRotate( );
+					if( r.r.balance == BRIGHT ){
+						r.r.leftN.balance = BLEFT;
+					}
+					else{
+						r.r.leftN.balance = BAL;
+					}
+					if( r.r.balance == BLEFT ){
+						r.r.rightN.balance = BRIGHT;
+					}
+					else{
+						r.r.rightN.balance = BAL;
+					}
+					r.r.balance = BAL;
+				}
+				break;
+		}
+	}
+	
+	public void leftBalanceDelete( Return0 r ){
+		switch( balance ){
+			case BLEFT:
+				if( leftN.balance != BRIGHT ){
+					r.r = rightRotate( );
+					if( r.r.balance == BAL ){
+						r.r.balance = BRIGHT;
+						r.r.rightN.balance = BLEFT;
+							r.heightChange= false;
+					}
+					else{
+						r.r.balance = BAL;
+						r.r.rightN.balance = BAL;
+					}
+				}
+				else{
+					r.r = leftRightRotate( );
+					if( r.r.balance == BLEFT){
+						r.r.rightN.balance = BRIGHT;
+					}
+					else{
+						r.r.rightN.balance = BAL;
+					}
+					if( r.r.balance == BRIGHT ){
+						r.r.leftN.balance = BLEFT;
+					}
+					else{
+						r.r.leftN.balance = BAL;
+					}
+					r.r.balance = BAL;
+				}
+				break;
+			case BAL:
+				balance = BLEFT;
+				r.heightChange=false;
+				r.r = this;
+				break;
+			case BRIGHT:
+				balance = BAL;
+				r.r = this;
+				break;
+		}
+	}
+	
+	private void delete2( T elem, Return0 r) throws ElementException{
+		int res = elem.compareTo(elem );
+		if( res == 0 ){
+	
+			if( leftN == null & rightN == null ){
+				r.heightChange= true;
+				r.r= null;
+			}
+			else if( leftN == null ){
+				r.r = rightN;
+				r.heightChange = true;
+			
+			}
+			else{
+				VrAvlTreeNode<T> ree = leftN.maxNode( );
+				elem = ree.elem;
+				leftN.delete2( ree.elem, r );
+				leftN = r.r;
+
+				if( r.heightChange ){
+					rightBalanceDelete( r);
+				}
+				else{
+					r.r= this;
+				}
+			}
+		}
+		else if( res > 0 ){
+	
+			if( leftN == null )	{
+				throw new ElementException(ElementException.NO_SUCH_ELEMENT);
+			}
+			leftN.delete2( elem, r);
+			leftN = r.r;
+
+			if( r.heightChange ){
+				rightBalanceDelete( r );
+			}
+			else{
+				r.r = this;
+			}
+		}
+		else{
+	
+			if( rightN == null ){
+				throw new ElementException(ElementException.NO_SUCH_ELEMENT);
+			}
+			rightN.delete2(elem, r);
+			rightN = r.r;	
+			
+			if( r.heightChange ){
+				leftBalanceDelete( r);
+			}
+			else{
+				r.r= this;
+			}
+		}	
 	}
 	
 	public VrAvlTreeNode<T>  leftRotate( ){
