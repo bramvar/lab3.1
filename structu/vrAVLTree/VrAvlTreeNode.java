@@ -67,6 +67,12 @@ public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 		return ( leftN == null ) ? this : leftN.minNode( );
 	}
 	
+	public int getHeight() {
+		int a1 = ( leftN == null ) ? 0 : leftN.getHeight( );
+		int a2 = ( rightN == null ) ? 0 : rightN.getHeight( );
+		return ( a1 >= a2 ) ? a1 + 1 : a2 + 1;
+	}
+	
 	public T maximun( ){
 		VrAvlTreeNode<T>  n = maxNode( );
 		return ( n== null ) ? null : n.getElem( );
