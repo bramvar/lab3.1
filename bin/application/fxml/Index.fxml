@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="882.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="485.0" prefWidth="235.0" style="-fx-background-color: #1f1f14;">
+         <children>
+            <Label prefHeight="82.0" prefWidth="237.0" style="-fx-background-color: #ff3300;" text="                       ADMIN" />
+            <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="241.0" style="-fx-background-color: #1f1f14;" text="Import data" textFill="#ebebeb" onAction="#showImportDataPane" fx:id="importDataButton"/>
+            <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="241.0" style="-fx-background-color: #1f1f14;" text="Data Info" textFill="#ebebeb" />
+         </children>
+         <effect>
+            <DropShadow radius="4.75" width="0.0" />
+         </effect>
+      </VBox>
+      <AnchorPane layoutX="235.0" prefHeight="485.0" prefWidth="650.0" style="-fx-background-color: #ffffff;">
+         <effect>
+            <DropShadow radius="4.75" width="0.0" />
+         </effect></AnchorPane>
+   </children>
+</AnchorPane>
