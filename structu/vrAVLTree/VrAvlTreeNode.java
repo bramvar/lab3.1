@@ -337,7 +337,7 @@ public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 	
 	private void insert2( T elem, Return0 r) throws ElementException{
 	
-		int res = elem.compareTo(elem);
+		int res = this.elem.compareTo(elem);
 		if( res== 0 )
 			throw new ElementException(ElementException.ELEMENT_EXIST);
 		else if( res> 0 ){

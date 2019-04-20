@@ -2,12 +2,30 @@ package model;
 
 public class Date {
 
-	private int day,month,year;
+	private int day,month,year,hour,min;
 
-	public Date(int day, int month, int year) {
+	public Date(int day, int month, int year,int hour,int min) {
 		this.day = day;
 		this.month = month;
 		this.year = year;
+		this.hour=hour;
+		this.min=min;
+	}
+
+	public int getHour() {
+		return hour;
+	}
+
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+
+	public int getMin() {
+		return min;
+	}
+
+	public void setMin(int min) {
+		this.min = min;
 	}
 
 	public int getDay() {

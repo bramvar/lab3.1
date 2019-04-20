@@ -40,8 +40,28 @@ public class Stock implements Comparable<Stock> {
 	@Override
 	public int compareTo(Stock s) {
 		int result=0;
-		if(this.value<s.value) result=-1;
-		else if(this.value>s.value) result=1;
+		if(this.market.compareTo(s.market)<0) result=-1;
+		else if(this.market.compareTo(s.market)>0) result=1;
+		else {
+			if(this.date.getYear()<s.date.getYear()) result=-1;
+			else if(this.date.getYear()>s.date.getYear()) result=1;
+			else {
+				if(this.date.getMonth()<s.date.getMonth())result=-1;
+				else if(this.date.getMonth()>s.date.getMonth())result=1;
+				else {
+					if(this.date.getDay()<s.date.getDay())result=-1;
+					else if(this.date.getDay()>s.date.getDay())result=1;
+					else {
+						if(this.date.getHour()<s.date.getHour())result=-1;
+						else if(this.date.getHour()>s.date.getHour())result=1;
+						else {
+							if(this.date.getMin()<s.date.getMin())result=-1;
+							else if(this.date.getMin()>s.date.getMin())result=1;
+						}
+					}
+				}
+			}
+		}
 		return result;
 	}
 }

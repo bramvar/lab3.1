@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import exceptions.ElementException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,6 +36,8 @@ public class IndexController implements Initializable{
 	  
 	  private ObservableList<String> listData=FXCollections.observableArrayList();
 	  private ObservableList<String> options=FXCollections.observableArrayList();
+	  
+	  private Main main;
 	  
 	 public void showImportDataPane(ActionEvent e) {
 		 pane.getChildren().add(importB);
@@ -92,46 +95,50 @@ public class IndexController implements Initializable{
 		 dataView.setPrefSize(550, 300);
 		 
 		 importB.setOnAction(event -> {
-		 
-		 FileChooser fileChooser = new FileChooser();
-	     fileChooser.setTitle("Buscar Imagen");
-	     
-	     fileChooser.getExtensionFilters().addAll(
+			 FileChooser fileChooser = new FileChooser();
+			 fileChooser.setTitle("Buscar Imagen");
+			 fileChooser.getExtensionFilters().addAll(
 	                new FileChooser.ExtensionFilter("TXT", "*.txt"),
 	                new FileChooser.ExtensionFilter("IN", "*.in")
-	        );
-	     
-	     File f = fileChooser.showOpenDialog(null);
-	     String line="";
-		try {
-			System.out.println(f.getAbsolutePath());
-			FileReader fr = new FileReader(f.getAbsolutePath());
-			 BufferedReader br=new BufferedReader(fr);
-			 while((line=br.readLine())!=null) {
-				 listData.add(line);
-				 System.out.println(line);
+		     	);
+			 
+			 File f = fileChooser.showOpenDialog(null);
+			 String line="";
+			 try {
+				 System.out.println(f.getAbsolutePath());
+				 FileReader fr = new FileReader(f.getAbsolutePath());
+				 BufferedReader br=new BufferedReader(fr);
+				 String[] m,n;
+				 int k=0;
+				 while((line=br.readLine())!=null) {
+					 listData.add(line);
+					 m=line.split(",");
+					 n=m[1].split(" ");
+					 
+					 if(dataType.getValue().equals("Stock")) {
+						 main.instance().addELementCapMarket(m[0],m[1],m[2]);
+					 }
+					 else {
+						 System.out.println("no guarda");
+					 }
+					 k++;
+					 System.out.println(k);
+				 }
 			 }
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			 catch (FileNotFoundException e) {
+				 e.printStackTrace();
+			 } catch (IOException e) {
+				 e.printStackTrace();
+			 } catch (ElementException e) {
+				e.printStackTrace();
+			}
 		dataView.setItems(listData);
 		dataView.refresh();
-		 });
+		});
 		 
 		 
 	}
 	
-	public void handleClicks(ActionEvent e) {
-		if(e.getSource()==importDataButton) {
-			
-		}
-		else if(e.getSource()==infoButton) {
-			
-		}
-	}
+
 
 }
