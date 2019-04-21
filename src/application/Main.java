@@ -24,6 +24,10 @@ public class Main extends Application {
 	        return instanceMain;
 	  }
 	 
+	 public int getNumStocks() {
+		 return pm.getNumStocks();
+	 }
+	 
 	 public void addELementCapMarket(String market,String date,String value) throws ElementException {
 		 pm.addELementCapMarket(market, date, value);
 	 }
@@ -42,6 +46,6 @@ public class Main extends Application {
 	
 	
 	public static void main(String[] args) {
-		launch(args);
+ 		launch(args);
 	}
 }

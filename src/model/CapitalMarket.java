@@ -23,6 +23,10 @@ public class CapitalMarket {
 		num--;
 	}
 	
+	public void searchStock(Stock s) {
+		stocks.search(s);
+	}
+	
 	public VrAvlTree<Stock> getStocks() {
 		return stocks;
 	}

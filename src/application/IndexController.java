@@ -16,11 +16,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
 public class IndexController implements Initializable{
@@ -29,9 +28,15 @@ public class IndexController implements Initializable{
 	  @FXML private Button infoButton;
 	  @FXML private AnchorPane pane;
 	  
+	  private DatePicker initialDate;
+	  
 	  private Button importB;
+	  private Button capMarketInfoBt;
+	  private Button forexInfoBt;
+	  private Button test;
+	  
 	  private ListView<String> dataView;
-	  private Label text,text2;
+	  private Label text,text2,totalStocksTx,totalStocks;
 	  private ComboBox<String> dataType;
 	  
 	  private ObservableList<String> listData=FXCollections.observableArrayList();
@@ -40,14 +45,38 @@ public class IndexController implements Initializable{
 	  private Main main;
 	  
 	 public void showImportDataPane(ActionEvent e) {
+		 pane.getChildren().clear();
+		 pane.getChildren().clear();
 		 pane.getChildren().add(importB);
 		 pane.getChildren().add(text);
 		 pane.getChildren().add(text2);
 		 pane.getChildren().add(dataView);
 		 pane.getChildren().add(dataType);
 		 importDataButton.setDisable(true);
+		 infoButton.setDisable(false);
 		 importDataButton.setStyle("fx-backgroud-color: #0d0d0d");
 		
+	 }
+	 
+	 public void showDataInfoPane(ActionEvent e) {
+		 pane.getChildren().clear();
+		 capMarketInfoBt.setStyle("fx-backgroud-color: #333645");
+		 pane.getChildren().add(capMarketInfoBt);
+		 pane.getChildren().add(forexInfoBt);
+		 importDataButton.setDisable(false);
+		 infoButton.setDisable(true);
+		 
+	 }
+	 
+	 public void showCapMarketInfoBt(ActionEvent e) {
+		 pane.getChildren().add(totalStocksTx);
+		 pane.getChildren().add(totalStocks);
+		 pane.getChildren().add(initialDate);
+		 pane.getChildren().add(test);
+	 }
+	 
+	 public void test(ActionEvent e) {
+		 System.out.println(initialDate.getValue());
 	 }
 	 
 	 public void showDataContent(ActionEvent e) throws IOException {
@@ -74,9 +103,37 @@ public class IndexController implements Initializable{
 		dataType.setLayoutX(250);
 		dataType.setLayoutY(25);
 		
+		initialDate=new DatePicker();
+		initialDate.setLayoutX(50);
+		initialDate.setLayoutY(150);
+		
 		options.add("Stock");
 		options.add("Currency");
 		dataType.setItems(options);
+		
+		totalStocksTx=new Label("Total Stocks: ");
+		totalStocksTx.setLayoutX(10);
+		totalStocksTx.setLayoutY(100);
+		
+		totalStocks=new Label();
+		totalStocks.setLayoutX(100);
+		totalStocks.setLayoutY(100);
+		
+		test=new Button("test");
+		test.setLayoutX(50);
+		test.setLayoutY(200);
+		
+		capMarketInfoBt=new Button("Capital Market");
+		capMarketInfoBt.setLayoutX(0);
+		capMarketInfoBt.setLayoutY(0);
+		capMarketInfoBt.setPrefSize(323,61);
+		capMarketInfoBt.setStyle("fx-backgroud-color: #333645");
+	
+		forexInfoBt=new Button("Forex");
+		forexInfoBt.setLayoutX(323);
+		forexInfoBt.setLayoutY(0);
+		forexInfoBt.setPrefSize(324,61);
+		forexInfoBt.setStyle("fx-backgroud-color: #333645");
 		
 		importB=new Button("add");
 		text=new Label();
@@ -124,6 +181,7 @@ public class IndexController implements Initializable{
 					 k++;
 					 System.out.println(k);
 				 }
+				 totalStocks.setText(Integer.toString(main.instance().getNumStocks()));
 			 }
 			 catch (FileNotFoundException e) {
 				 e.printStackTrace();
@@ -135,6 +193,14 @@ public class IndexController implements Initializable{
 		dataView.setItems(listData);
 		dataView.refresh();
 		});
+		 
+		 capMarketInfoBt.setOnAction(event ->{
+			 showCapMarketInfoBt(event);
+		 });
+		 
+		 test.setOnAction(event ->{
+			 test(event);
+		 });
 		 
 		 
 	}

@@ -28,6 +28,25 @@ public class PrincipalMarket {
 		cm.addStock(s);
 	}
 	
+	public void highestStockPriceDate(String initialDate, String finalDate) {
+		if((initialDate!=null)&&(finalDate!=null)) {
+			String[] iDate=initialDate.split("-");
+			String[] fDate=finalDate.split("-");
+		}
+	}
+	
+	public void lowestStockPriceDate(String initialDate, String finalDate) {
+		
+	}
+	
+	public int getNumStocks() {
+		return cm.getNum();
+	}
+
+	public Forex getF() {
+		return f;
+	}
+
 	public static void main(String[] args)throws IOException, ElementException{
 
 	     String line="";

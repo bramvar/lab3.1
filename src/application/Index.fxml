@@ -12,7 +12,7 @@
          <children>
             <Label prefHeight="61.0" prefWidth="190.0" style="-fx-background-color: #ff6600;" text="            ADMIN PANEL" textAlignment="CENTER" textFill="WHITE" />
             <Button fx:id="importDataButton" mnemonicParsing="false" prefHeight="89.0" prefWidth="192.0" style="-fx-background-color: #333645;" text="Import data" textFill="WHITE" onAction="#showImportDataPane" />
-            <Button fx:id="infoButton" mnemonicParsing="false" prefHeight="89.0" prefWidth="192.0" style="-fx-background-color: #333645;" text="Data info" textFill="WHITE" />
+            <Button fx:id="infoButton" mnemonicParsing="false" prefHeight="89.0" prefWidth="192.0" style="-fx-background-color: #333645;" text="Data info" textFill="WHITE" onAction="#showDataInfoPane"/>
          </children>
       </VBox>
       <AnchorPane fx:id="pane" layoutX="190.0" prefHeight="423.0" prefWidth="647.0" />
