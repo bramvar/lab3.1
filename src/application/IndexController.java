@@ -29,14 +29,16 @@ public class IndexController implements Initializable{
 	  @FXML private AnchorPane pane;
 	  
 	  private DatePicker initialDate;
+	  private DatePicker finalDate;
 	  
 	  private Button importB;
 	  private Button capMarketInfoBt;
 	  private Button forexInfoBt;
 	  private Button test;
+	  private Button showInfoByDate;
 	  
 	  private ListView<String> dataView;
-	  private Label text,text2,totalStocksTx,totalStocks;
+	  private Label text,text2,totalStocksTx,totalStocks,text3,text4,highestStockPriceTx,highestStockPrice;
 	  private ComboBox<String> dataType;
 	  
 	  private ObservableList<String> listData=FXCollections.observableArrayList();
@@ -58,6 +60,12 @@ public class IndexController implements Initializable{
 		
 	 }
 	 
+	 public void showStockPricesInfoByDate(ActionEvent e) throws NumberFormatException, ElementException {
+		 pane.getChildren().add(highestStockPriceTx);
+		 pane.getChildren().add(highestStockPrice);
+		 highestStockPrice.setText(Double.toString(main.instance().highestStockPriceDate(initialDate.getValue().toString(), finalDate.getValue().toString())));
+	 }
+	 
 	 public void showDataInfoPane(ActionEvent e) {
 		 pane.getChildren().clear();
 		 capMarketInfoBt.setStyle("fx-backgroud-color: #333645");
@@ -72,7 +80,11 @@ public class IndexController implements Initializable{
 		 pane.getChildren().add(totalStocksTx);
 		 pane.getChildren().add(totalStocks);
 		 pane.getChildren().add(initialDate);
-		 pane.getChildren().add(test);
+		 pane.getChildren().add(finalDate);
+		 pane.getChildren().add(text3);
+		 pane.getChildren().add(text4);
+		 pane.getChildren().add(showInfoByDate);
+		// pane.getChildren().add(test);
 	 }
 	 
 	 public void test(ActionEvent e) {
@@ -103,9 +115,33 @@ public class IndexController implements Initializable{
 		dataType.setLayoutX(250);
 		dataType.setLayoutY(25);
 		
+		showInfoByDate=new Button("GO");
+		showInfoByDate.setLayoutX(220);
+		showInfoByDate.setLayoutY(240);
+		
+		highestStockPriceTx=new Label("highest Stock Price: ");
+		highestStockPriceTx.setLayoutX(50);
+		highestStockPriceTx.setLayoutY(280);
+		
+		highestStockPrice=new Label();
+		highestStockPrice.setLayoutX(180);
+		highestStockPrice.setLayoutY(280);
+		
+		text3=new Label("Data from:");
+		text3.setLayoutX(50);
+		text3.setLayoutY(120);
+			
+		text4=new Label("to");
+		text4.setLayoutX(50);
+		text4.setLayoutY(180);
+
 		initialDate=new DatePicker();
 		initialDate.setLayoutX(50);
 		initialDate.setLayoutY(150);
+		
+		finalDate=new DatePicker();
+		finalDate.setLayoutX(50);
+		finalDate.setLayoutY(200);
 		
 		options.add("Stock");
 		options.add("Currency");
@@ -196,6 +232,18 @@ public class IndexController implements Initializable{
 		 
 		 capMarketInfoBt.setOnAction(event ->{
 			 showCapMarketInfoBt(event);
+		 });
+		 
+		 showInfoByDate.setOnAction(event ->{
+			 try {
+				showStockPricesInfoByDate(event);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ElementException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		 });
 		 
 		 test.setOnAction(event ->{

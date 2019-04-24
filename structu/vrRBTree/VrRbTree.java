@@ -67,8 +67,8 @@ public class VrRbTree<T extends Comparable<? super T>> implements IvrTreeO<T>{
 	public void delete(T elem) throws ElementException {
 		if( root == null )
 			throw new ElementException(ElementException.NO_SUCH_ELEMENT);
-			if( root.getElem( ).compareTo( elem ) == 0 && root.isLeafRightChild() && root.isLeafLeftChild() )
-				root = null;
+		if( root.getElem( ).compareTo( elem ) == 0 && root.isLeafRightChild() && root.isLeafLeftChild() )
+			root = null;
 			else{
 				VrRbTreeNode<T> r2 = root.getNode( elem ).eliminar( );
 				root = r2 != null && r2.getParent( ) == null ? r2 : root;

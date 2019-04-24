@@ -33,6 +33,22 @@ public class VrAvlTree<T extends Comparable<? super T>> implements IvrTreeO<T>{
 	public T search(T e) {
 		return ( root != null ) ? root.search(e) : null;
 	}
+	
+	public T search2(T e) {
+		return ( root != null ) ? root.search(e) : null;
+	}
+
+	public VrAvlTreeNode<T> getRoot() {
+		return root;
+	}
+
+	public void setRoot(VrAvlTreeNode<T> root) {
+		this.root = root;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
 
 	@Override
 	public void insert(T elem) throws ElementException {
@@ -53,6 +69,7 @@ public class VrAvlTree<T extends Comparable<? super T>> implements IvrTreeO<T>{
 		}
 		else	{
 			throw new ElementException(ElementException.NO_SUCH_ELEMENT);
+			
 		}
 		
 	}

@@ -92,11 +92,25 @@ public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 	
 	public T search( T elem )
 	{
-		int res = elem.compareTo( elem );
+		int res = this.elem.compareTo( elem );
 		if( res == 0 ) {
-			return elem;
+			return this.elem;
 		}
 		else if( res > 0 ){
+			return ( leftN != null ) ? leftN.search( elem ) : null;
+		}
+		else{
+			return ( rightN != null ) ? rightN.search( elem ) : null;
+		}
+	}
+	
+	public T search2( T elem )
+	{
+		int res = elem.compareTo( this.elem );
+		if( res == 0 ) {
+			return this.elem;
+		}
+		else if( res < 0 ){
 			return ( leftN != null ) ? leftN.search( elem ) : null;
 		}
 		else{
@@ -198,8 +212,8 @@ public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 		}
 	}
 	
-	private void delete2( T elem, Return0 r) throws ElementException{
-		int res = elem.compareTo(elem );
+	private void delete2( T elemt, Return0 r) throws ElementException{
+		int res = elem.compareTo(elemt );
 		if( res == 0 ){
 	
 			if( leftN == null & rightN == null ){
@@ -230,7 +244,7 @@ public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 			if( leftN == null )	{
 				throw new ElementException(ElementException.NO_SUCH_ELEMENT);
 			}
-			leftN.delete2( elem, r);
+			leftN.delete2( elemt, r);
 			leftN = r.r;
 
 			if( r.heightChange ){
@@ -245,7 +259,7 @@ public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 			if( rightN == null ){
 				throw new ElementException(ElementException.NO_SUCH_ELEMENT);
 			}
-			rightN.delete2(elem, r);
+			rightN.delete2(elemt, r);
 			rightN = r.r;	
 			
 			if( r.heightChange ){

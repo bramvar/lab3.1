@@ -31,6 +31,10 @@ public class Main extends Application {
 	 public void addELementCapMarket(String market,String date,String value) throws ElementException {
 		 pm.addELementCapMarket(market, date, value);
 	 }
+	 
+	 public double highestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
+		return  pm.highestStockPriceDate(initialDate, finalDate);
+	}
 	
 	@Override
 	public void start(Stage stage) throws IOException {

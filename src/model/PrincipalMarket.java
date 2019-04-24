@@ -28,11 +28,16 @@ public class PrincipalMarket {
 		cm.addStock(s);
 	}
 	
-	public void highestStockPriceDate(String initialDate, String finalDate) {
+	public double highestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
+		double result=0;
 		if((initialDate!=null)&&(finalDate!=null)) {
 			String[] iDate=initialDate.split("-");
 			String[] fDate=finalDate.split("-");
+			
+			double[] prices=cm.getStockPricesByDate(Integer.parseInt(iDate[3]),Integer.parseInt(iDate[2]),Integer.parseInt(iDate[1]),Integer.parseInt(fDate[3]),Integer.parseInt(fDate[2]),Integer.parseInt(fDate[1]));
+			result=cm.highestPriceDate(prices);
 		}
+		return result;
 	}
 	
 	public void lowestStockPriceDate(String initialDate, String finalDate) {
