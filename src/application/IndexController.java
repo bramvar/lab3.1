@@ -38,7 +38,7 @@ public class IndexController implements Initializable{
 	  private Button showInfoByDate;
 	  
 	  private ListView<String> dataView;
-	  private Label text,text2,totalStocksTx,totalStocks,text3,text4,highestStockPriceTx,highestStockPrice;
+	  private Label text,text2,totalStocksTx,totalStocks,text3,text4,highestStockPriceTx,highestStockPrice,lowestStockPriceTx,lowestStockPrice;
 	  private ComboBox<String> dataType;
 	  
 	  private ObservableList<String> listData=FXCollections.observableArrayList();
@@ -87,6 +87,31 @@ public class IndexController implements Initializable{
 		// pane.getChildren().add(test);
 	 }
 	 
+	 public void hideCapMarketInfo() {
+		 totalStocksTx.setVisible(false);
+		 totalStocks.setVisible(false);
+		 initialDate.setVisible(false);
+		 finalDate.setVisible(false);
+		 text3.setVisible(false);
+		 text4.setVisible(false);;
+		 showInfoByDate.setVisible(false);
+		// pane.getChildren().add(test);
+	 }
+	 
+	 
+	 public void showForexInfoBt(ActionEvent e) {
+		 pane.getChildren().add(lowestStockPriceTx);
+		 pane.getChildren().add(lowestStockPrice);
+		 lowestStockPriceTx.setVisible(true);
+		 lowestStockPrice.setVisible(true);
+		 
+	 }
+	 
+	 public void hideForexInfo() {
+		 lowestStockPriceTx.setVisible(false);
+		 lowestStockPrice.setVisible(false);
+	 }
+	 
 	 public void test(ActionEvent e) {
 		 System.out.println(initialDate.getValue());
 	 }
@@ -126,6 +151,14 @@ public class IndexController implements Initializable{
 		highestStockPrice=new Label();
 		highestStockPrice.setLayoutX(180);
 		highestStockPrice.setLayoutY(280);
+		
+		lowestStockPriceTx=new Label("lowest stock price: ");
+		lowestStockPriceTx.setLayoutX(300);
+		lowestStockPriceTx.setLayoutY(280);
+		
+		lowestStockPrice=new Label("s");
+		lowestStockPrice.setLayoutX(380);
+		lowestStockPrice.setLayoutY(280);
 		
 		text3=new Label("Data from:");
 		text3.setLayoutX(50);
@@ -244,6 +277,10 @@ public class IndexController implements Initializable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		 });
+		 
+		 forexInfoBt.setOnAction(event ->{
+			 showForexInfoBt(event);
 		 });
 		 
 		 test.setOnAction(event ->{

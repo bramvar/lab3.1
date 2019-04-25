@@ -28,7 +28,7 @@ public class PrincipalMarket {
 		cm.addStock(s);
 	}
 	
-	public double highestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
+	public double  highestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
 		double result=0;
 		if((initialDate!=null)&&(finalDate!=null)) {
 			String[] iDate=initialDate.split("-");
