@@ -89,5 +89,10 @@ class VrRBTreeTest {
 		
 	}
 	
+	@Test
+	void test2() {
+		scenario3();
+		
+	}
 
 }
