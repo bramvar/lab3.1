@@ -70,7 +70,6 @@ class VrRBTreeTest {
 		assertFalse(tree.getRoot().blackChildren());
 		assertTrue(tree.getRoot().getLeftChild().getElem()==7&&tree.getRoot().getRightChild().getElem()==12);
 		tree.insert(6.0);
-		//tree.insert(7.5);
 		assertTrue(tree.getRoot().getElem()==9);
 		assertTrue(tree.getRoot().blackChildren());
 		assertTrue(tree.getRoot().getLeftChild().getLeftChild().getColor()==VrRbTreeNode.RED);
