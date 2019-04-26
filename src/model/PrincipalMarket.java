@@ -28,30 +28,49 @@ public class PrincipalMarket {
 		cm.addStock(s);
 	}
 	
+	public void addELementForex(String market,String date,String value) throws ElementException {
+		System.out.println(date);
+		String[] date1=date.split(" ");
+		String[] date2=date1[1].split("/");
+		String[] time=date1[2].split(":");
+		System.out.println(time[0]+" "+time[1]);
+		Date d=new Date(Integer.parseInt(date2[0]),Integer.parseInt(date2[1]),Integer.parseInt(date2[2]),Integer.parseInt(time[0]),Integer.parseInt(time[1]));
+		Stock s=new Stock(market,Double.parseDouble(value),d);
+		cm.addStock(s);
+	}
+	
+	
 	public CapitalMarket getCm() {
 		return cm;
 	}
 
-	public double  highestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
-		double result=0;
+	public double[]  highestAndLowestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
+		double[] result=new double[2];
 		if((initialDate!=null)&&(finalDate!=null)) {
 			String[] iDate=initialDate.split("-");
 			String[] fDate=finalDate.split("-");
-			
+			System.out.println("h"+cm.getStocks().getWeight());
 			double[] prices=cm.getStockPricesByDate(Integer.parseInt(iDate[2]),Integer.parseInt(iDate[1]),Integer.parseInt(iDate[0]),Integer.parseInt(fDate[2]),Integer.parseInt(fDate[1]),Integer.parseInt(fDate[0]));
-			result=cm.highestPriceDate(prices);
+			
+			System.out.println("highp="+prices.length);
+			System.out.println("h2"+cm.getStocks().getWeight());
+			result[0]=cm.highestPriceDate(prices);
+			result[1]=cm.lowestStockPriceDate(prices);
 		}
 		return result;
 	}
 	
 	public double lowestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
 		double result=0;
+		
 		if((initialDate!=null)&&(finalDate!=null)) {
+			System.out.println("date "+initialDate+" "+finalDate);
 			String[] iDate=initialDate.split("-");
 			String[] fDate=finalDate.split("-");
-			
+			System.out.println("date2 "+iDate[0]+"-"+iDate[1] );
 			double[] prices=cm.getStockPricesByDate(Integer.parseInt(iDate[2]),Integer.parseInt(iDate[1]),Integer.parseInt(iDate[0]),Integer.parseInt(fDate[2]),Integer.parseInt(fDate[1]),Integer.parseInt(fDate[0]));
-			result=cm.lowestStockPriceDate(prices);
+			System.out.println("loghp="+prices.length);
+			result=
 		}
 		return result;
 	}

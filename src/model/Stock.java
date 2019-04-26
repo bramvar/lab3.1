@@ -8,6 +8,7 @@ public class Stock implements Comparable<Stock> {
 	private String market;
 	private double value;
 	private Date date;
+	private boolean found;
 	
 	private int compareToCondition;
 	
@@ -16,8 +17,17 @@ public class Stock implements Comparable<Stock> {
 		this.value = value;
 		this.date = date;
 		compareToCondition=1;
+		found=false;
 	}
 	
+	public void setFound(boolean found) {
+		this.found = found;
+	}
+	
+	public boolean isFound() {
+		return found;
+	}
+
 	public String getMarket() {
 		return market;
 	}
@@ -89,6 +99,10 @@ public class Stock implements Comparable<Stock> {
 				else {
 					if(this.date.getDay()<s.date.getDay())result=-1;
 					else if(this.date.getDay()>s.date.getDay())result=1;
+					else {
+						if(this.found==true) result=1;
+					}
+				
 				}
 			}
 		

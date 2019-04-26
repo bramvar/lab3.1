@@ -27,10 +27,10 @@ public class CapitalMarket {
 		num--;
 	}
 	
-	public void deleteStockByDate(int year,int month,int day) throws ElementException {
+	public void deleteStockByDate(int year,int month,int day, VrAvlTree<Stock> a) throws ElementException {
 		Stock s=new Stock("",2,new Date(day,month,year,0,0));
 		//s.setCompareToCondition(Stock.COMPARE_ALL);
-		 stocks.delete(s);
+		 a.delete(s);
 	}
 	
 	public void visitAllStocks() {
@@ -63,8 +63,9 @@ public class CapitalMarket {
 		int m=iMonth;
 		int y=iYear;
 		VrQueue<Stock> a =new VrQueue<Stock>();
+		VrAvlTree<Stock> aux=getStocks();
 		
-		while(y<3||m<5||d<2) {
+		while(y<fYear||m<fMonth||d<fDay) {
 			if(d>31) {
 				d=1;
 				m++;
@@ -73,13 +74,18 @@ public class CapitalMarket {
 				m=1;
 				y++;
 			}
-			if(searchAllStockByDate(y, m, d)==null) {
-				d++;
-			}
-			else {
-				a.offer(searchAllStockByDate(y, m, d));
-				deleteStockByDate(y,m,d);
-			}
+			Stock s=new Stock("",2,new Date(d,m,y,0,0));
+			
+
+				if(aux.search(s)==null) {
+					d++;
+				}
+				else {
+					a.offer(aux.search(s));
+					aux.search(s).setFound(true);;
+				}
+			
+			
 			//System.out.println(d+"/"+m+"/"+y);
 			//System.out.println(cont);
 		}
@@ -117,8 +123,8 @@ public class CapitalMarket {
 		}
 		else {
 			int m=(i+j)/2;
-			double aux=highestPriceDate(arr,i,m);
-			double aux2=highestPriceDate(arr, m+1,j);
+			double aux=lowestStockPriceDate(arr,i,m);
+			double aux2=lowestStockPriceDate(arr, m+1,j);
 			return (aux<aux2)?aux:aux2;
 		}
 	}
@@ -127,10 +133,10 @@ public class CapitalMarket {
 		return stocks.search(s);
 	}
 	
-	public Stock searchAllStockByDate(int year,int month,int day) {
+	public Stock searchAllStockByDate(int year,int month,int day,VrAvlTree<Stock> a) {
 		Stock s=new Stock("",2,new Date(day,month,year,0,0));
 		//s.setCompareToCondition(Stock.COMPARE_ALL);
-		return stocks.search(s);
+		return a.search(s);
 	}
 	
 	public VrAvlTree<Stock> getStocks() {

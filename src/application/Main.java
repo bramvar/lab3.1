@@ -32,8 +32,12 @@ public class Main extends Application {
 		 pm.addELementCapMarket(market, date, value);
 	 }
 	 
-	 public double highestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
-		return  pm.highestStockPriceDate(initialDate, finalDate);
+	 public double[] highestAndLowestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
+		return  pm.highestAndLowestStockPriceDate(initialDate, finalDate);
+	 }
+	 
+	 public double lowestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException{ 
+		return pm.lowestStockPriceDate(initialDate, finalDate);
 	 }
 	 
 	 public void setAllCompareConditionStocks() {

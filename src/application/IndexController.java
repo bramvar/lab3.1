@@ -39,6 +39,7 @@ public class IndexController implements Initializable{
 	  
 	  private ListView<String> dataView;
 	  private Label text,text2,totalStocksTx,totalStocks,text3,text4,highestStockPriceTx,highestStockPrice,lowestStockPriceTx,lowestStockPrice;
+	  private Label highestCurrencyPriceTx,highestCurrencyPrice,lowestCurrencyPriceTx,lowestCurrencyPrice;
 	  private ComboBox<String> dataType;
 	  
 	  private ObservableList<String> listData=FXCollections.observableArrayList();
@@ -47,7 +48,6 @@ public class IndexController implements Initializable{
 	  private Main main;
 	  
 	 public void showImportDataPane(ActionEvent e) {
-		 pane.getChildren().clear();
 		 pane.getChildren().clear();
 		 pane.getChildren().add(importB);
 		 pane.getChildren().add(text);
@@ -61,9 +61,11 @@ public class IndexController implements Initializable{
 	 }
 	 
 	 public void showStockPricesInfoByDate(ActionEvent e) throws NumberFormatException, ElementException {
-		 pane.getChildren().add(highestStockPriceTx);
-		 pane.getChildren().add(highestStockPrice);
-		 highestStockPrice.setText(Double.toString(main.instance().highestStockPriceDate(initialDate.getValue().toString(), finalDate.getValue().toString())));
+		 String idate=initialDate.getValue().toString();
+		 String fdate=finalDate.getValue().toString();
+		 double[] d=main.instance().highestAndLowestStockPriceDate(idate, fdate);
+		 highestStockPrice.setText(Double.toString(d[0]));
+		 lowestStockPrice.setText(Double.toString(d[1]));
 	 }
 	 
 	 public void showDataInfoPane(ActionEvent e) {
@@ -71,12 +73,7 @@ public class IndexController implements Initializable{
 		 capMarketInfoBt.setStyle("fx-backgroud-color: #333645");
 		 pane.getChildren().add(capMarketInfoBt);
 		 pane.getChildren().add(forexInfoBt);
-		 importDataButton.setDisable(false);
-		 infoButton.setDisable(true);
 		 
-	 }
-	 
-	 public void showCapMarketInfoBt(ActionEvent e) {
 		 pane.getChildren().add(totalStocksTx);
 		 pane.getChildren().add(totalStocks);
 		 pane.getChildren().add(initialDate);
@@ -84,32 +81,63 @@ public class IndexController implements Initializable{
 		 pane.getChildren().add(text3);
 		 pane.getChildren().add(text4);
 		 pane.getChildren().add(showInfoByDate);
+		 pane.getChildren().add(highestCurrencyPriceTx);
+		 pane.getChildren().add(highestCurrencyPrice);
+		 pane.getChildren().add( lowestCurrencyPriceTx);
+		 pane.getChildren().add( lowestCurrencyPrice);
+		
+		 
+		 hideOrShowForexInfo(false);
+		 
+		 capMarketInfoBt.setDisable(true);
+		 forexInfoBt.setDisable(false);
+		 
+		 pane.getChildren().add(highestStockPriceTx);
+		 pane.getChildren().add(highestStockPrice);
+		 
+		 pane.getChildren().add(lowestStockPriceTx);
+		 pane.getChildren().add(lowestStockPrice);
+		 
+		 importDataButton.setDisable(false);
+		 infoButton.setDisable(true);
+		 
+	 }
+	 
+	 public void showCapMarketInfoBt(ActionEvent e) {
+		 hideOrShowCapMarketInfo(true);
+		 capMarketInfoBt.setDisable(true);
+		 forexInfoBt.setDisable(false);
+		 hideOrShowForexInfo(false);
 		// pane.getChildren().add(test);
 	 }
 	 
-	 public void hideCapMarketInfo() {
-		 totalStocksTx.setVisible(false);
-		 totalStocks.setVisible(false);
-		 initialDate.setVisible(false);
-		 finalDate.setVisible(false);
-		 text3.setVisible(false);
-		 text4.setVisible(false);;
-		 showInfoByDate.setVisible(false);
+	 public void hideOrShowCapMarketInfo(boolean a) {
+		 totalStocksTx.setVisible(a);
+		 totalStocks.setVisible(a);
+		 highestStockPriceTx.setVisible(a);
+		 highestStockPrice.setVisible(a);
+		 lowestStockPriceTx.setVisible(a);
+		 lowestStockPrice.setVisible(a);
 		// pane.getChildren().add(test);
 	 }
 	 
 	 
 	 public void showForexInfoBt(ActionEvent e) {
-		 pane.getChildren().add(lowestStockPriceTx);
-		 pane.getChildren().add(lowestStockPrice);
-		 lowestStockPriceTx.setVisible(true);
-		 lowestStockPrice.setVisible(true);
+		 hideOrShowForexInfo(true);
+		 hideOrShowCapMarketInfo(false);
+		 capMarketInfoBt.setDisable(false);
+		 forexInfoBt.setDisable(true);
+		// lowestStockPriceTx.setVisible(true);
+		 //lowestStockPrice.setVisible(true);
 		 
 	 }
 	 
-	 public void hideForexInfo() {
-		 lowestStockPriceTx.setVisible(false);
-		 lowestStockPrice.setVisible(false);
+	 public void hideOrShowForexInfo(boolean a) {
+		 highestCurrencyPriceTx.setVisible(a);
+		 highestCurrencyPrice.setVisible(a);
+		 lowestCurrencyPriceTx.setVisible(a);
+		 lowestCurrencyPrice.setVisible(a);
+		 
 	 }
 	 
 	 public void test(ActionEvent e) {
@@ -141,39 +169,55 @@ public class IndexController implements Initializable{
 		dataType.setLayoutY(25);
 		
 		showInfoByDate=new Button("GO");
-		showInfoByDate.setLayoutX(220);
+		showInfoByDate.setLayoutX(380);
 		showInfoByDate.setLayoutY(240);
+		
+		lowestCurrencyPriceTx=new Label("lowest currency Price: ");
+		lowestCurrencyPriceTx.setLayoutX(330);
+		lowestCurrencyPriceTx.setLayoutY(310);
+		
+		lowestCurrencyPrice=new Label("l");
+		lowestCurrencyPrice.setLayoutX(490);
+		lowestCurrencyPrice.setLayoutY(310);
+		
+		highestCurrencyPriceTx=new Label("highest currency Price: ");
+		highestCurrencyPriceTx.setLayoutX(330);
+		highestCurrencyPriceTx.setLayoutY(280);
+		
+		highestCurrencyPrice=new Label("h");
+		highestCurrencyPrice.setLayoutX(490);
+		highestCurrencyPrice.setLayoutY(280);
 		
 		highestStockPriceTx=new Label("highest Stock Price: ");
 		highestStockPriceTx.setLayoutX(50);
 		highestStockPriceTx.setLayoutY(280);
 		
-		highestStockPrice=new Label();
+		highestStockPrice=new Label("a");
 		highestStockPrice.setLayoutX(180);
 		highestStockPrice.setLayoutY(280);
 		
 		lowestStockPriceTx=new Label("lowest stock price: ");
-		lowestStockPriceTx.setLayoutX(300);
-		lowestStockPriceTx.setLayoutY(280);
+		lowestStockPriceTx.setLayoutX(50);
+		lowestStockPriceTx.setLayoutY(310);
 		
 		lowestStockPrice=new Label("s");
-		lowestStockPrice.setLayoutX(380);
-		lowestStockPrice.setLayoutY(280);
+		lowestStockPrice.setLayoutX(180);
+		lowestStockPrice.setLayoutY(310);
 		
 		text3=new Label("Data from:");
-		text3.setLayoutX(50);
+		text3.setLayoutX(220);
 		text3.setLayoutY(120);
 			
 		text4=new Label("to");
-		text4.setLayoutX(50);
+		text4.setLayoutX(220);
 		text4.setLayoutY(180);
 
 		initialDate=new DatePicker();
-		initialDate.setLayoutX(50);
+		initialDate.setLayoutX(220);
 		initialDate.setLayoutY(150);
 		
 		finalDate=new DatePicker();
-		finalDate.setLayoutX(50);
+		finalDate.setLayoutX(220);
 		finalDate.setLayoutY(200);
 		
 		options.add("Stock");
@@ -244,8 +288,8 @@ public class IndexController implements Initializable{
 					 if(dataType.getValue().equals("Stock")) {
 						 main.instance().addELementCapMarket(m[0],m[1],m[2]);
 					 }
-					 else {
-						 System.out.println("no guarda");
+					 else if(dataType.getValue().equals("Curency")){
+						 
 					 }
 					 k++;
 					 System.out.println(k);
