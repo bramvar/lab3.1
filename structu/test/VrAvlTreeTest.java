@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import exceptions.ElementException;
 import vrAVLTree.VrAvlTree;
-import vrRBTree.VrRbTree;
 
 class VrAvlTreeTest {
 
