@@ -78,7 +78,7 @@ public class Stock implements Comparable<Stock> {
 					}
 				}
 			}
-			compareToCondition=-1;
+			//compareToCondition=-1;
 		}
 		else {
 			if(this.date.getYear()<s.date.getYear()) result=-1;

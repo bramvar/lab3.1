@@ -28,20 +28,32 @@ public class PrincipalMarket {
 		cm.addStock(s);
 	}
 	
+	public CapitalMarket getCm() {
+		return cm;
+	}
+
 	public double  highestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
 		double result=0;
 		if((initialDate!=null)&&(finalDate!=null)) {
 			String[] iDate=initialDate.split("-");
 			String[] fDate=finalDate.split("-");
 			
-			double[] prices=cm.getStockPricesByDate(Integer.parseInt(iDate[3]),Integer.parseInt(iDate[2]),Integer.parseInt(iDate[1]),Integer.parseInt(fDate[3]),Integer.parseInt(fDate[2]),Integer.parseInt(fDate[1]));
+			double[] prices=cm.getStockPricesByDate(Integer.parseInt(iDate[2]),Integer.parseInt(iDate[1]),Integer.parseInt(iDate[0]),Integer.parseInt(fDate[2]),Integer.parseInt(fDate[1]),Integer.parseInt(fDate[0]));
 			result=cm.highestPriceDate(prices);
 		}
 		return result;
 	}
 	
-	public void lowestStockPriceDate(String initialDate, String finalDate) {
-		
+	public double lowestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
+		double result=0;
+		if((initialDate!=null)&&(finalDate!=null)) {
+			String[] iDate=initialDate.split("-");
+			String[] fDate=finalDate.split("-");
+			
+			double[] prices=cm.getStockPricesByDate(Integer.parseInt(iDate[2]),Integer.parseInt(iDate[1]),Integer.parseInt(iDate[0]),Integer.parseInt(fDate[2]),Integer.parseInt(fDate[1]),Integer.parseInt(fDate[0]));
+			result=cm.lowestStockPriceDate(prices);
+		}
+		return result;
 	}
 	
 	public int getNumStocks() {
@@ -58,7 +70,7 @@ public class PrincipalMarket {
 	     String line2="";
 	     
 	     CapitalMarket c=new CapitalMarket();
-/*
+
 			FileReader fr = new FileReader( new File("/home/vardo/Downloads/#US30 prices.txt"));
 			 BufferedReader br=new BufferedReader(fr);
 			while((line=br.readLine())!=null) {;
@@ -71,10 +83,10 @@ public class PrincipalMarket {
 			String[] p=n[1].split("/");
 			
 			System.out.println(n1[1]);
-			*/
+			
 			Stock s1= new Stock("ddd",125.5,new Date(1,1,123,5,3));
 			Stock s2= new Stock("ddd",125.5,new Date(1,1,123,5,4));
-			System.out.println(s1.compareTo(s2));
+			System.out.println();
 			
 			c.addStock(s2);
 			c.addStock(s1);

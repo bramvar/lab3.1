@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import exceptions.ElementException;
 import vRqueue.VrQueue;
 import vrAVLTree.VrAvlTree;
+import vrAVLTree.VrAvlTreeNode;
 
 public class CapitalMarket {
 	
@@ -30,6 +31,31 @@ public class CapitalMarket {
 		Stock s=new Stock("",2,new Date(day,month,year,0,0));
 		//s.setCompareToCondition(Stock.COMPARE_ALL);
 		 stocks.delete(s);
+	}
+	
+	public void visitAllStocks() {
+		visitAllStocks(stocks.getRoot());
+	}
+	
+	public void  visitAllStocks(VrAvlTreeNode<Stock> n) {
+			if(n!=null) {
+				visitAllStocks(n.getLeftN());
+				System.out.println(n.getElem().getMarket()+"-"+n.getElem().getValue());
+				visitAllStocks(n.getRightN());
+			}
+	
+	}
+	
+	public void setAllCompareConditionStocks() {
+		setAllCompareConditionStocks(stocks.getRoot());
+	}
+	
+	public void setAllCompareConditionStocks(VrAvlTreeNode<Stock> n) {
+		if(n!=null) {
+			setAllCompareConditionStocks(n.getLeftN());
+			n.getElem().setCompareToCondition(Stock.COMPARE_DATE);
+			setAllCompareConditionStocks(n.getRightN());
+		}
 	}
 	
 	public double[] getStockPricesByDate(int iDay,int iMonth,int iYear,int fDay,int fMonth,int fYear) throws ElementException {
@@ -81,6 +107,22 @@ public class CapitalMarket {
 		}
 	}
 	
+	public double lowestStockPriceDate(double[] arr) {
+		return lowestStockPriceDate(arr,0,arr.length-1);
+	}
+	
+	public double lowestStockPriceDate(double[] arr, int i, int j) {
+		if(i==j) {
+			return arr[i];
+		}
+		else {
+			int m=(i+j)/2;
+			double aux=highestPriceDate(arr,i,m);
+			double aux2=highestPriceDate(arr, m+1,j);
+			return (aux<aux2)?aux:aux2;
+		}
+	}
+	
 	public Stock searchStock(Stock s) {
 		return stocks.search(s);
 	}
@@ -108,10 +150,10 @@ public class CapitalMarket {
 		Date t=new Date(1,2,2,0,0);
 		Stock s=new Stock("test",5,t);;
 		Stock s1=new Stock("test1",3,new Date(2,2,2,0,0));
-		Stock s2=new Stock("test2",1,new Date(2,4,3,0,0));
-		Stock s3=new Stock("test3",1,new Date(1,5,3,0,0));
-		Stock s4=new Stock("test4",1,new Date(2,5,3,0,0));
-		Stock s5=new Stock("test5",1,new Date(2,4,5,0,0));
+		Stock s2=new Stock("test2",4,new Date(2,4,3,0,0));
+		Stock s3=new Stock("test3",6,new Date(1,5,3,0,0));
+		Stock s4=new Stock("test4",8,new Date(2,5,3,0,0));
+		Stock s5=new Stock("test5",0,new Date(2,4,5,0,0));
 		
 		cm.addStock(s);
 		cm.addStock(s1);
@@ -156,12 +198,18 @@ public class CapitalMarket {
 		
 	//	cm.deleteStockByDate(2,2,2);
 		
-		
+		/*
 		System.out.println(a.size());
 		
 		for(Stock q:a) {
 			System.out.println(q.getMarket());
-		}
+		}*/
+		
+		cm.visitAllStocks();
+		System.out.println("-------------");
+		cm.setAllCompareConditionStocks();
+		System.out.println("-------------");
+		cm.visitAllStocks();
 		
 		
 	}

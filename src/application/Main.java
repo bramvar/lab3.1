@@ -34,7 +34,11 @@ public class Main extends Application {
 	 
 	 public double highestStockPriceDate(String initialDate, String finalDate) throws NumberFormatException, ElementException {
 		return  pm.highestStockPriceDate(initialDate, finalDate);
-	}
+	 }
+	 
+	 public void setAllCompareConditionStocks() {
+		pm.getCm().setAllCompareConditionStocks();	
+	 }
 	
 	@Override
 	public void start(Stage stage) throws IOException {

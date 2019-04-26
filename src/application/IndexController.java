@@ -261,6 +261,8 @@ public class IndexController implements Initializable{
 			}
 		dataView.setItems(listData);
 		dataView.refresh();
+		
+		main.instance().setAllCompareConditionStocks();
 		});
 		 
 		 capMarketInfoBt.setOnAction(event ->{

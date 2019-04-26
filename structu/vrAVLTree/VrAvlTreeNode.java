@@ -90,8 +90,13 @@ public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 		return r.r;
 	}
 	
-	public T search( T elem )
-	{
+	public void  visitAllStocks() {
+		
+	}
+	
+	
+	
+	public T search( T elem ){
 		int res = this.elem.compareTo( elem );
 		if( res == 0 ) {
 			return this.elem;
@@ -106,7 +111,7 @@ public class VrAvlTreeNode<T extends Comparable<? super T>>  {
 	
 	public T search2( T elem )
 	{
-		int res = elem.compareTo( this.elem );
+		int res = elem.compareTo( this.elem);
 		if( res == 0 ) {
 			return this.elem;
 		}

@@ -5,13 +5,29 @@ import vRqueue.VrQueue;
 import vrRBTree.VrRbTree;
 
 public class Forex {
-	
+
 	private VrRbTree<Currency> currencies;
 	private int num;
 	
 	public Forex() {
 		currencies=new VrRbTree<Currency>();
 		num=0;
+	}
+	
+	public VrRbTree<Currency> getCurrencies() {
+		return currencies;
+	}
+
+	public void setCurrencies(VrRbTree<Currency> currencies) {
+		this.currencies = currencies;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
 	}
 	
 	public void addCurrency(Currency c) throws ElementException {
